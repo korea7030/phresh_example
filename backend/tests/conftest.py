@@ -46,13 +46,8 @@ def db(app: FastAPI) -> Database:
 # Make requests in our tests
 @pytest.fixture
 async def client(app: FastAPI) -> TestClient:
-    async with TestClient(app):
-        async with TestClient(
-            app=app,
-            base_url='http://localhost:8000',
-            headers={'Content-Type': 'application/json'}
-        ) as client:
-            yield client
+    async with TestClient(app) as client:
+        yield client
 
 
 @pytest.fixture
